@@ -38,10 +38,11 @@
   <ItemGroup>
      <Compile Include="Assets\Simple 2D Platformer BE2\ReadMe\Scripts\ReadmeBE2.cs" />
      <Compile Include="Assets\screites\PlayerMove.cs" />
+     <Compile Include="Assets\UI\QuarterView 3D Action BE5\ReadMe\Scripts\ReadmeBE5.cs" />
      <Compile Include="Assets\screites\GameManager.cs" />
      <Compile Include="Assets\screites\test.cs" />
      <Compile Include="Assets\screites\MobsMove.cs" />
-     <Compile Include="Assets\UI\QuarterView 3D Action BE5\ReadMe\Scripts\ReadmeBE5.cs" />
+     <Compile Include="Assets\screites\GamebuttenClick.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.26f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
