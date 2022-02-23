@@ -5558,8 +5558,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a1c01e6a312e8246b58d3380d12a418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionDropdown: {fileID: 0}
-  fullscreenBtn: {fileID: 0}
+  resolutionDropdown: {fileID: 834725385}
+  fullscreenBtn: {fileID: 1599176615}
 --- !u!114 &834725385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6796,7 +6796,7 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: "\uC548\uB155\uD558\uC138\uC694"
+    - m_Text: Option A
       m_Image: {fileID: 0}
     - m_Text: Option B
       m_Image: {fileID: 0}
@@ -6868,8 +6868,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a1c01e6a312e8246b58d3380d12a418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionDropdown: {fileID: 0}
-  fullscreenBtn: {fileID: 0}
+  resolutionDropdown: {fileID: 938956908}
+  fullscreenBtn: {fileID: 735545570}
 --- !u!1 &949859574
 GameObject:
   m_ObjectHideFlags: 0
