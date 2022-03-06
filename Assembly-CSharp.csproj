@@ -51,11 +51,11 @@
      <Compile Include="Assets\script\PlayerMove.cs" />
      <Compile Include="Assets\UI\QuarterView 3D Action BE5\ReadMe\Scripts\ReadmeBE5.cs" />
      <Compile Include="Assets\script\GamebuttenClick.cs" />
+     <Compile Include="Assets\script\Scene.cs" />
      <Compile Include="Assets\script\GameManager.cs" />
      <Compile Include="Assets\script\VideoOptions.cs" />
      <Compile Include="Assets\script\test.cs" />
      <Compile Include="Assets\script\MobsMove.cs" />
-     <Compile Include="Assets\script\Scene.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.26f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
