@@ -10,6 +10,8 @@ public class MobsMove : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Animator anim;
     CapsuleCollider2D collider;
+
+    //초기화
     void Awake() 
     {
       rigid = GetComponent<Rigidbody2D>();
@@ -35,6 +37,7 @@ public class MobsMove : MonoBehaviour
             }
     }
 
+    //몬스터 AI
     void Think()
     {
         nextMove = Random.Range(-1, 2);
@@ -55,20 +58,4 @@ public class MobsMove : MonoBehaviour
         Invoke("Think", 5);
 
     }
-
-    public void OnDamaged(){
-        spriteRenderer.color = new Color(1,1,1,0.5f);
-
-        spriteRenderer.flipY = true;
-
-        collider.enabled = false;
-
-        rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
-        
-        Invoke("DeActive", 5);
-
-    }
-    void DeActive(){
-        gameObject.SetActive(false);
-    }  
 }

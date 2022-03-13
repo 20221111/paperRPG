@@ -59,57 +59,53 @@ public class PlayerMove : MonoBehaviour
       }
     }
 
-    void OnCollisionEnter2D(Collision2D collision) {
-      
-      if(collision.gameObject.tag == "Enemy"){
-        if(rigid.velocity.y < 0 && transform.position.y > collision.transform.position.y){
-          OnAttack(collision.transform);
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (collision.gameObject.tag == "Enemy")
+        {
+            OnDamaged(collision.transform.position);
         }
-        else
-          OnDamaged(collision.transform.position);
-      }
+
+        void OnDamaged(Vector2 targetPos)
+        {
+            gameObject.layer = 11;
+            spriteRenderer.color = new Color(1, 1, 1, 0.4f);
+            int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
+            rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
+
+            anim.SetTrigger("doDamaged");
+
+            Invoke("OffDamaged", 2);
+        }
+
     }
-    void OnDamaged(Vector2 targetPos){
-      gameObject.layer = 11;
-      spriteRenderer.color = new Color(1,1,1,0.4f);
-      int dirc = transform.position.x - targetPos.x > 0 ? 1: -1;
-      rigid.AddForce(new Vector2(dirc,1)*7,ForceMode2D.Impulse);
+        void OffDamaged()
+        {
+            gameObject.layer = 10;
+            spriteRenderer.color = new Color(1, 1, 1, 1);
+        }
 
-      anim.SetTrigger("doDamaged");
+        void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag == "Item")
+            {
+                bool isBronze = collision.gameObject.name.Contains("Bronze");
+                bool isGold = collision.gameObject.name.Contains("Gold");
+                bool isSilver = collision.gameObject.name.Contains("Silver");
 
-      Invoke("OffDamaged",2);
-    }
+                if (isBronze)
+                    gameManager.stagepoint += 10;
+                else if (isSilver)
+                    gameManager.stagepoint += 20;
+                else if (isGold)
+                    gameManager.stagepoint += 30;
 
-    void OffDamaged(){
-      gameObject.layer = 10;
-      spriteRenderer.color = new Color(1,1,1,1);
-    }
-
-    void OnAttack(Transform enemy){
-
-      rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
-      gameManager.stagepoint += 5;
-
-      MobsMove mobsMove = enemy.GetComponent<MobsMove>();
-      mobsMove.OnDamaged();
-    }
-     void OnTriggerEnter2D(Collider2D collision){
-      if (collision.gameObject.tag == "Item"){
-        bool isBronze = collision.gameObject.name.Contains("Bronze");
-        bool isGold = collision.gameObject.name.Contains("Gold");
-        bool isSilver = collision.gameObject.name.Contains("Silver");
-
-        if(isBronze)
-          gameManager.stagepoint += 10;
-        else if(isSilver)
-          gameManager.stagepoint += 20;
-        else if(isGold)
-          gameManager.stagepoint += 30;
-
-        collision.gameObject.SetActive(false);
-      }
-      else if(collision.gameObject.tag == "Finish"){
-        gameManager.NextStage();
-      }
-    }
+                collision.gameObject.SetActive(false);
+            }
+            else if (collision.gameObject.tag == "Finish")
+            {
+                gameManager.NextStage();
+            }
+        }
 }
