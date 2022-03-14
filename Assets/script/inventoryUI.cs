@@ -12,11 +12,6 @@ public class inventoryUI : MonoBehaviour
         inventoryPanel.SetActive(activeInventory);
 
     }
-    public void setbooltoggle()
-    {
-        activeInventory = false;
-        inventoryPanel.SetActive(activeInventory);
-    }
 
     private void Update()
     {
