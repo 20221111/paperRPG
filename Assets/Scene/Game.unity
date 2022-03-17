@@ -5473,6 +5473,14 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8471091010756930999, guid: 47e413802460f9949a4105d2ea158e4f, type: 3}
+      propertyPath: hp
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471091010756930999, guid: 47e413802460f9949a4105d2ea158e4f, type: 3}
+      propertyPath: maxHp
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471091010756930999, guid: 47e413802460f9949a4105d2ea158e4f, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 874149659}

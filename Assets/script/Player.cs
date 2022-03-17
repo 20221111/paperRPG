@@ -16,10 +16,11 @@ public class Player : MonoBehaviour
     public Transform Pos;
     public Vector2 boxSize;
 
+    //플레이어 능력치
     public int level = 1;
     public int exp = 0;
     public int[] maxexp = {204, 454, 759, 1132, 1588, 2146, 2827, 3658, 4673, 5911, 7422, 9264, 11511, 14250, 17588, 21656, 26611, 32645, 39993, 48939, 59827, 73076, 89196, 108806, 132655 };
-    public int hp = 100, maxHp = 100, maxMP = 100, attack = 10;
+    public int hp = 1000, maxHp = 1000, mp = 850, maxMp = 850, attackDamage = 100;
 
 
 
@@ -29,6 +30,8 @@ public class Player : MonoBehaviour
       rigid = GetComponent<Rigidbody2D>();
       spriteRenderer = GetComponent<SpriteRenderer>();
       anim = GetComponent<Animator>();
+
+        //플레이어 레벨 초기화
         for (int i = 0; i < maxexp.Length; i++)
         {
             if(maxexp[i] <= exp)
@@ -37,6 +40,12 @@ public class Player : MonoBehaviour
                 break;
             }
         }
+        //플레이어 레벨에 맞춰 능력치 조정
+        maxHp += (100 * (level - 1));
+        hp = maxHp;
+        maxMp += (85 * (level - 1));
+        mp = maxMp;
+        attackDamage += (10 * (level - 1));
     }
     void Update() {
 
@@ -54,7 +63,7 @@ public class Player : MonoBehaviour
                 {
                     if (collider.tag == "Enemy")
                     {
-                        collider.GetComponent<Mobs>().TakeDamage(attack);
+                        collider.GetComponent<Mobs>().TakeDamage(attackDamage);
                         if (collider.GetComponent<Mobs>().HP <= 0)
                         {
                             MobDIe(collider);
@@ -217,8 +226,20 @@ public class Player : MonoBehaviour
 
     void Levelup()
     {
-        level++;
-        Debug.Log("레벨이" + level + "로 올랐습니다");
+        for (int i = 0; i < maxexp.Length; i++)
+        {
+            if (maxexp[i] > exp)
+            {
+                level = i + 1;
+                maxHp += (100 * (level - 1));
+                hp = maxHp;
+                maxMp += (85 * (level - 1));
+                mp = maxMp;
+                attackDamage += (10 * (level - 1));
+                Debug.Log("레벨이" + level + "로 올랐습니다");
+                break;
+            }
+        }
     }
 
     //디버그용 메소드
