@@ -11,7 +11,7 @@ public class Mobs : MonoBehaviour
     public int nextMove;
     public int HP = 10;
     public int attack = 10;
-    public int Exp = 10;
+    public int Exp = 100;
 
     //초기화
     void Awake() 
@@ -66,6 +66,7 @@ public class Mobs : MonoBehaviour
     //몬스터를 사망처리함
     public void DIe()
     {
+        SpawnManager._instance.isSpawn[int.Parse(transform.parent.name) -1] = false;
         spriteRenderer.color = new Color(1, 1, 1, 0.5f);
         spriteRenderer.flipY = true;
         mobscollider.enabled = false;
@@ -78,6 +79,7 @@ public class Mobs : MonoBehaviour
     void DeActive()
     {
         gameObject.SetActive(false);
+
     }
 
     //플레이어에게 피격시 자신의 채력을 낮춤

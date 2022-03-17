@@ -16,7 +16,10 @@ public class Player : MonoBehaviour
     public Transform Pos;
     public Vector2 boxSize;
 
-    public int level = 1, exp = 0, maxexp = 100, hp = 100, maxHp = 100, maxMP = 100, attack = 10;
+    public int level = 1;
+    public int exp = 0;
+    public int[] maxexp = {204, 454, 759, 1132, 1588, 2146, 2827, 3658, 4673, 5911, 7422, 9264, 11511, 14250, 17588, 21656, 26611, 32645, 39993, 48939, 59827, 73076, 89196, 108806, 132655 };
+    public int hp = 100, maxHp = 100, maxMP = 100, attack = 10;
 
 
 
@@ -26,6 +29,14 @@ public class Player : MonoBehaviour
       rigid = GetComponent<Rigidbody2D>();
       spriteRenderer = GetComponent<SpriteRenderer>();
       anim = GetComponent<Animator>();
+        for (int i = 0; i < maxexp.Length; i++)
+        {
+            if(maxexp[i] <= exp)
+            {
+                level = i + 1;
+                break;
+            }
+        }
     }
     void Update() {
 
@@ -172,42 +183,41 @@ public class Player : MonoBehaviour
     public void MobDIe(Collider2D collider)
     {
         exp += collider.GetComponent<Mobs>().Exp;
-        if (exp >= maxexp)
+
+        if (maxexp[level - 1] <= exp)
         {
             Levelup();
         }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
+    {
+        //동전을 먹으면 점수가 오르게 함
+        if (collision.gameObject.tag == "Item")
         {
-            //동전을 먹으면 점수가 오르게 함
-            if (collision.gameObject.tag == "Item")
-            {
-                bool isBronze = collision.gameObject.name.Contains("Bronze");
-                bool isGold = collision.gameObject.name.Contains("Gold");
-                bool isSilver = collision.gameObject.name.Contains("Silver");
+            bool isBronze = collision.gameObject.name.Contains("Bronze");
+            bool isGold = collision.gameObject.name.Contains("Gold");
+            bool isSilver = collision.gameObject.name.Contains("Silver");
 
-                if (isBronze)
-                    gameManager.stagepoint += 10;
-                else if (isSilver)
-                    gameManager.stagepoint += 20;
-                else if (isGold)
-                    gameManager.stagepoint += 30;
+            if (isBronze)
+                gameManager.stagepoint += 10;
+            else if (isSilver)
+                gameManager.stagepoint += 20;
+            else if (isGold)
+                gameManager.stagepoint += 30;
 
-                collision.gameObject.SetActive(false);
-            }
-            //종점에 도착하면 다음스테이지로 이동함
-            else if (collision.gameObject.tag == "Finish")
-            {
-                gameManager.NextStage();
-            }
+            collision.gameObject.SetActive(false);
         }
+        //종점에 도착하면 다음스테이지로 이동함
+        else if (collision.gameObject.tag == "Finish")
+        {
+            gameManager.NextStage();
+        }
+    }
 
     void Levelup()
     {
         level++;
-        exp = 0;
-        maxexp *= level;
         Debug.Log("레벨이" + level + "로 올랐습니다");
     }
 
