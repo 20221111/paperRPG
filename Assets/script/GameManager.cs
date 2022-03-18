@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject settingUI;
     public int totalPoint;
     public int stagepoint;
     public int stageIndex;
-    public int HP;
+
+    private void Start()
+    {
+
+    }
     public void NextStage()
     {
         stageIndex++;
@@ -18,6 +23,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            settingUI.SetActive(true);
+        }
+
 
     }
 }

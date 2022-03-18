@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class Player : MonoBehaviour
     public int exp = 0;
     public int[] maxexp = {204, 454, 759, 1132, 1588, 2146, 2827, 3658, 4673, 5911, 7422, 9264, 11511, 14250, 17588, 21656, 26611, 32645, 39993, 48939, 59827, 73076, 89196, 108806, 132655 };
     public int hp = 1000, maxHp = 1000, mp = 850, maxMp = 850, attackDamage = 100;
+
+    public Image[] infoBar;
 
 
 
@@ -248,4 +251,16 @@ public class Player : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(Pos.position, boxSize);
     }
+
+    /* <summary>
+         public void PlayerHPbar()
+
+        {
+
+            hpbar.fillAmount = HP / 100f;
+
+            HpText.text = string.Format("HP {0}/100", HP);
+
+    }
+    */
 }
