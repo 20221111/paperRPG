@@ -23,7 +23,8 @@ public class Player : MonoBehaviour
     public int[] maxexp = {204, 454, 759, 1132, 1588, 2146, 2827, 3658, 4673, 5911, 7422, 9264, 11511, 14250, 17588, 21656, 26611, 32645, 39993, 48939, 59827, 73076, 89196, 108806, 132655 };
     public int hp = 1000, maxHp = 1000, mp = 850, maxMp = 850, attackDamage = 100;
 
-    public Image[] infoBar;
+    public Slider[] infoBar;
+    public Text LV;
 
 
 
@@ -49,6 +50,9 @@ public class Player : MonoBehaviour
         maxMp += (85 * (level - 1));
         mp = maxMp;
         attackDamage += (10 * (level - 1));
+
+        //플레이어 레벨 설정
+        LV.text = "LV." + level;
     }
     void Update() {
 
@@ -167,6 +171,7 @@ public class Player : MonoBehaviour
             gameObject.layer = 11;
             spriteRenderer.color = new Color(1, 1, 1, 0.4f);
             hp -= damage;
+            infoBar[0].value = ((float)hp / (float)maxHp);
             anim.SetTrigger("doDamaged");
 
             if (hp<=0)
@@ -199,6 +204,16 @@ public class Player : MonoBehaviour
         if (maxexp[level - 1] <= exp)
         {
             Levelup();
+        }
+
+        //현재 경험치량에 맞게 경험치 바를 조정
+        if (level == 1)
+        {
+            infoBar[2].value = (float)exp / maxexp[0];
+        }
+        else
+        {
+            infoBar[2].value = ((float)exp - (maxexp[level - 2])) / ((float)(maxexp[level - 1] - maxexp[level - 2]));
         }
     }
 
@@ -240,6 +255,7 @@ public class Player : MonoBehaviour
                 mp = maxMp;
                 attackDamage += (10 * (level - 1));
                 Debug.Log("레벨이" + level + "로 올랐습니다");
+                LV.text = "LV." + level;
                 break;
             }
         }
@@ -252,15 +268,4 @@ public class Player : MonoBehaviour
         Gizmos.DrawWireCube(Pos.position, boxSize);
     }
 
-    /* <summary>
-         public void PlayerHPbar()
-
-        {
-
-            hpbar.fillAmount = HP / 100f;
-
-            HpText.text = string.Format("HP {0}/100", HP);
-
-    }
-    */
 }
