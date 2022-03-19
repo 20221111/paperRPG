@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
         if (curtime <= 0)
         {
             //F버튼을 누르면 공격
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetButtonDown("Fire1"))
             {
                 //공격
 

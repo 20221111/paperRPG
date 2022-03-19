@@ -9,24 +9,30 @@ public class Mobs : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Animator anim;
     public int nextMove;
-    public int HP = 10;
-    public int attack = 10;
-    public int Exp = 1000;
+    public int HP;
+    public int attack;
+    public int Exp;
+    public int Money;
 
     //초기화
-    void Awake() 
+    public virtual void Start() 
     {
       rigid = GetComponent<Rigidbody2D>();
       anim = GetComponent<Animator>();
       spriteRenderer = GetComponent<SpriteRenderer>();
       mobscollider = GetComponent<CapsuleCollider2D>();
 
-      Think();
+        HP = 10;
+        attack = 10;
+        Exp = 1000;
+        Money = 100;
+
+    Think();
 
       Invoke("Think", 5);
     }
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         //Move
         rigid.velocity = new Vector2(nextMove, rigid.velocity.y);
@@ -41,7 +47,7 @@ public class Mobs : MonoBehaviour
     }
 
     //몬스터 AI
-    void Think()
+    public void Think()
     {
         nextMove = Random.Range(-1, 2);
       Invoke("Think",5);
@@ -54,7 +60,7 @@ public class Mobs : MonoBehaviour
     }
 
     //몬스터의 진행방향을 바꿈
-        void turn()
+    public void turn()
     {
         nextMove = nextMove* -1;
         spriteRenderer.flipX = nextMove == 1;
@@ -76,7 +82,7 @@ public class Mobs : MonoBehaviour
     }
 
     //몬스터 객체를 비활성화함
-    void DeActive()
+    public void DeActive()
     {
         gameObject.SetActive(false);
 
