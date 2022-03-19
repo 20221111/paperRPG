@@ -11,7 +11,7 @@ public class Mobs : MonoBehaviour
     public int nextMove;
     public int HP = 10;
     public int attack = 10;
-    public int Exp = 100;
+    public int Exp = 1000;
 
     //초기화
     void Awake() 

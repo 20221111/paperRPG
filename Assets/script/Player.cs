@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     //플레이어 능력치
     public int level = 1;
     public int exp = 0;
-    public int[] maxexp = {204, 454, 759, 1132, 1588, 2146, 2827, 3658, 4673, 5911, 7422, 9264, 11511, 14250, 17588, 21656, 26611, 32645, 39993, 48939, 59827, 73076, 89196, 108806, 132655 };
+    public int[] maxexp = { 2040, 4536, 7589, 11321, 15883, 21457, 28265, 36578, 46726, 59109, 74217, 92644, 115112, 142502, 175884, 216559, 266108, 326454, 399934, 489389, 598268, 730762, 891964, 1088056, 1326547 };
     public int hp = 1000, maxHp = 1000, mp = 850, maxMp = 850, attackDamage = 100;
 
     public Slider[] infoBar;
@@ -51,8 +51,9 @@ public class Player : MonoBehaviour
         mp = maxMp;
         attackDamage += (10 * (level - 1));
 
-        //플레이어 레벨 설정
-        LV.text = "LV." + level;
+        //플레이어 UI 초기화
+        UItextController();
+        UIBarController();
     }
     void Update() {
 
@@ -171,7 +172,7 @@ public class Player : MonoBehaviour
             gameObject.layer = 11;
             spriteRenderer.color = new Color(1, 1, 1, 0.4f);
             hp -= damage;
-            infoBar[0].value = ((float)hp / (float)maxHp);
+            UIBarController();
             anim.SetTrigger("doDamaged");
 
             if (hp<=0)
@@ -206,15 +207,7 @@ public class Player : MonoBehaviour
             Levelup();
         }
 
-        //현재 경험치량에 맞게 경험치 바를 조정
-        if (level == 1)
-        {
-            infoBar[2].value = (float)exp / maxexp[0];
-        }
-        else
-        {
-            infoBar[2].value = ((float)exp - (maxexp[level - 2])) / ((float)(maxexp[level - 1] - maxexp[level - 2]));
-        }
+        UIBarController();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -255,10 +248,30 @@ public class Player : MonoBehaviour
                 mp = maxMp;
                 attackDamage += (10 * (level - 1));
                 Debug.Log("레벨이" + level + "로 올랐습니다");
-                LV.text = "LV." + level;
+                UItextController();
                 break;
             }
         }
+    }
+
+    void UIBarController()
+    {
+
+        infoBar[0].value = ((float)hp / (float)maxHp);
+        //현재 경험치량에 맞게 경험치 바를 조정
+        if (level == 1)
+        {
+            infoBar[2].value = (float)exp / maxexp[0];
+        }
+        else
+        {
+            infoBar[2].value = ((float)exp - (maxexp[level - 2])) / ((float)(maxexp[level - 1] - maxexp[level - 2]));
+        }
+    }
+
+    void UItextController()
+    {
+        LV.text = "LV." + level;
     }
 
     //디버그용 메소드
