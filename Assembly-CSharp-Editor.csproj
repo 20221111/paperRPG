@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Assets\Simple 2D Platformer BE2\ReadMe\Scripts\Editor\ReadmeEditorBE2.cs" />
     <Compile Include="Assets\nmy\UI\QuarterView 3D Action BE5\ReadMe\Scripts\Editor\ReadmeEditorBE5.cs" />
+    <Compile Include="Assets\nmy\Bolt 2D JellyFarm VE2\ReadMe\Scripts\Editor\ReadmeEditorVE2.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

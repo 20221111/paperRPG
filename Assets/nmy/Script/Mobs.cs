@@ -18,7 +18,6 @@ public class Mobs : MonoBehaviour
     public virtual void Start() 
     {
       rigid = GetComponent<Rigidbody2D>();
-      anim = GetComponent<Animator>();
       spriteRenderer = GetComponent<SpriteRenderer>();
       mobscollider = GetComponent<CapsuleCollider2D>();
 
@@ -27,9 +26,8 @@ public class Mobs : MonoBehaviour
         Exp = 1000;
         Money = 100;
 
-    Think();
-
-      Invoke("Think", 5);
+        Think();
+        Invoke("Think", 5);
     }
 
     public void FixedUpdate()
@@ -38,33 +36,30 @@ public class Mobs : MonoBehaviour
         rigid.velocity = new Vector2(nextMove, rigid.velocity.y);
 
         //Platform check
-        Vector2 FrontVec = new Vector2(rigid.position.x + nextMove*0.2f, rigid.position.y);
+        Vector2 FrontVec = new Vector2(rigid.position.x + nextMove*0.2f, rigid.position.y+1);
         Debug.DrawRay(FrontVec, Vector3.down, new Color(0,1,0));
         RaycastHit2D rayHit = Physics2D.Raycast(FrontVec, Vector3.down, 1, LayerMask.GetMask("Platform"));
             if(rayHit.collider == null){
                 turn();
-            }
+        }
     }
 
     //몬스터 AI
     public void Think()
     {
         nextMove = Random.Range(-1, 2);
-      Invoke("Think",5);
-
-      anim.SetInteger("warkSpeed",nextMove);
-
-      if(nextMove !=0)
-      spriteRenderer.flipX = nextMove == 1;
+        if (nextMove != 0)
+            spriteRenderer.flipX = nextMove == 1;
+        CancelInvoke();
+        Invoke("Think",5);
 
     }
 
     //몬스터의 진행방향을 바꿈
     public void turn()
     {
-        nextMove = nextMove* -1;
+        nextMove *= -1;
         spriteRenderer.flipX = nextMove == 1;
-        CancelInvoke();
         Invoke("Think", 5);
 
     }
@@ -73,20 +68,15 @@ public class Mobs : MonoBehaviour
     public void DIe()
     {
         SpawnManager._instance.isSpawn[int.Parse(transform.parent.name) -1] = false;
+        SpawnManager._instance.maxMob -= 1;
         spriteRenderer.color = new Color(1, 1, 1, 0.5f);
         spriteRenderer.flipY = true;
         mobscollider.enabled = false;
         rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
-        Invoke("DeActive", 5);
+        Destroy(gameObject, 3f);
 
     }
 
-    //몬스터 객체를 비활성화함
-    public void DeActive()
-    {
-        gameObject.SetActive(false);
-
-    }
 
     //플레이어에게 피격시 자신의 채력을 낮춤
     public void TakeDamage(int damage)

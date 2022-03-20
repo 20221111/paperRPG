@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public float jumpPower;
     SpriteRenderer spriteRenderer;
     Animator anim;
+    Animator attackAnim;
 
     private float curtime;
     public float cooltime = 0.5f; //공격 쿨타임 0.5초
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
       rigid = GetComponent<Rigidbody2D>();
       spriteRenderer = GetComponent<SpriteRenderer>();
       anim = GetComponent<Animator>();
+      attackAnim = transform.GetChild(0).GetComponent<Animator>();
 
         //플레이어 레벨 초기화
         for (int i = 0; i < maxexp.Length; i++)
@@ -65,7 +67,7 @@ public class Player : MonoBehaviour
             if (Input.GetButtonDown("Fire1"))
             {
                 //공격
-
+                attackAnim.SetTrigger("Attack");
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(Pos.position, boxSize, 0);
                 foreach (Collider2D collider in collider2Ds)
                 {

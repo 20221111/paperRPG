@@ -82,6 +82,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\nmy\Script\GameManager.cs" />
     <Compile Include="Assets\nmy\Script\VideoOptions.cs" />
+    <Compile Include="Assets\nmy\Script\mob_bunny.cs" />
     <Compile Include="Assets\script\test.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\nmy\Script\Mobs.cs" />
@@ -97,7 +98,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
-    <Compile Include="Assets\nmy\Script\mob_bunny.cs" />
+    <Compile Include="Assets\nmy\Bolt 2D JellyFarm VE2\ReadMe\Scripts\ReadmeVE2.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

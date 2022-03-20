@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public int maxMob = 5;
+    public int curMob;
     public float spawnTime = 3f;
     public float curTime;
     public bool[] isSpawn;
@@ -26,7 +28,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (curTime >= spawnTime)
+        if (curTime >= spawnTime && curMob <= maxMob)
         {
             int x = Random.Range(0, spawnPoints.Length);
             if (!isSpawn[x])
@@ -39,6 +41,7 @@ public class SpawnManager : MonoBehaviour
     {
         curTime = 0;
         Instantiate(mobs, spawnPoints[ranNum]);
+        curMob += 1;
         isSpawn[ranNum] = true;
     }
 }
