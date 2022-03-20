@@ -8,6 +8,7 @@ public class Mobs : MonoBehaviour
     CapsuleCollider2D mobscollider;
     SpriteRenderer spriteRenderer;
     Animator anim;
+    public string mobName;
     public int nextMove;
     public int HP;
     public int attack;
@@ -21,6 +22,7 @@ public class Mobs : MonoBehaviour
       spriteRenderer = GetComponent<SpriteRenderer>();
       mobscollider = GetComponent<CapsuleCollider2D>();
 
+        mobName = "mob";
         HP = 10;
         attack = 10;
         Exp = 1000;

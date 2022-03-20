@@ -9,6 +9,7 @@ public class mob_bunny : Mobs
     public override void Start()
     {
         base.Start();
+        name = "bunny";
         HP = 1584;
         attack = 55;
         Exp = 14;
