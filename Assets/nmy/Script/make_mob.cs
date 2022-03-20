@@ -46,6 +46,7 @@ public class make_mob : MonoBehaviour
         mobs mobdata = new mobs("bunny", 0, 1584, 55, 14, 158);
 
         string jsondata  = JsonUtility.ToJson(mobdata, true);
+
         print(jsondata);
         string path = Application.dataPath + "/mobs.json";
         File.WriteAllText(path, jsondata);
