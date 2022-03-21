@@ -85,6 +85,7 @@
     <Compile Include="Assets\khi\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\nmy\Script\mob_alligator.cs" />
     <Compile Include="Assets\khi\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
+    <Compile Include="Assets\CR\script\OutPoint.cs" />
     <Compile Include="Assets\nmy\Script\GameManager.cs" />
     <Compile Include="Assets\nmy\Script\VideoOptions.cs" />
     <Compile Include="Assets\nmy\Script\mob_bunny.cs" />
@@ -103,7 +104,7 @@
     <Compile Include="Assets\khi\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\khi\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\CR\script\TransferMap_out.cs" />
-    <Compile Include="Assets\CR\script\OutPoint.cs" />
+    <Compile Include="Assets\CR\script\Teleport.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\khi\TextMesh Pro\Shaders\TMPro.cginc" />
