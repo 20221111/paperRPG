@@ -5504,13 +5504,32 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1817238768623956024, guid: 2d63a37639955bf4cbb1a72d889dc2c9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2d63a37639955bf4cbb1a72d889dc2c9, type: 3}
 --- !u!19719996 &1288389552 stripped
 TilemapCollider2D:
   m_CorrespondingSourceObject: {fileID: 1817238768391373850, guid: 2d63a37639955bf4cbb1a72d889dc2c9, type: 3}
   m_PrefabInstance: {fileID: 1288389551}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1288389553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1817238768623956026, guid: 2d63a37639955bf4cbb1a72d889dc2c9, type: 3}
+  m_PrefabInstance: {fileID: 1288389551}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1288389554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288389553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b5727d8f8728a44abe07f3972f98d3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transferMapName: Forest_S
 --- !u!1 &1295997082
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,6 +21,7 @@ public class TransferMap : MonoBehaviour
         {
             thePlayer.currentMapName = transferMapName;
             SceneManager.LoadScene(transferMapName);
+            thePlayer.transform.position = new Vector2(3, 1);
         }
     }
 }
