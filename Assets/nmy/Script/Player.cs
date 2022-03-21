@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     Animator anim;
     Animator attackAnim;
     public string currentMapName; //TransferMap 스크립트에 있는 transferMapName 변수의 값을 저장
+    static public Player instance; //TransferMap 할때 플레이어 무한 생성 막기 위해
 
     private float curtime;
     public float cooltime = 0.5f; //공격 쿨타임 0.5초
@@ -33,7 +34,17 @@ public class Player : MonoBehaviour
 
     void Awake() {
 
-        DontDestroyOnLoad(this.gameObject); //맵 이동할때 플레이어 사라지지않게
+        if(instance == null)
+        {
+            DontDestroyOnLoad(this.gameObject); //맵 이동할때 플레이어 사라지지않게
+            instance = this;
+
+        }
+        else
+        { 
+            Destroy(this.gameObject);
+        }
+
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -42,7 +53,7 @@ public class Player : MonoBehaviour
         //플레이어 레벨 초기화
         for (int i = 0; i < maxexp.Length; i++)
         {
-            if(maxexp[i] <= exp)
+            if (maxexp[i] <= exp)
             {
                 level = i + 1;
                 break;
@@ -58,6 +69,9 @@ public class Player : MonoBehaviour
         //플레이어 UI 초기화
         UItextController();
         UIBarController();
+
+
+
     }
     void Update() {
 

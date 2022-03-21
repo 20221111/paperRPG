@@ -341,9 +341,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86817e45d9ab833458e198798bed8eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 567814923474940070, guid: f9a1b8a341c82eb4db01ea4a797cf347, type: 3}
   maxSpeed: 10
   jumpPower: 20
+  currentMapName: 
   cooltime: 0.5
   Pos: {fileID: 8471091008891959886}
   boxSize: {x: 1.5, y: 1}
@@ -356,7 +357,7 @@ MonoBehaviour:
   maxMp: 850
   attackDamage: 100
   infoBar:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2840279743960751560, guid: 5d47d7262c7299e4e9d2a4fc43566568, type: 3}
+  - {fileID: 8108600675577361480, guid: 3f3405b814477674da59953e3bbacb1d, type: 3}
+  - {fileID: 4191133438372728898, guid: 290cbca23f0ec564ca27779a7ce17095, type: 3}
   LV: {fileID: 0}

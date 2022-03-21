@@ -6,16 +6,13 @@ public class StartPoint : MonoBehaviour
 {
     public string startPoint;
     private Player thePlayer;
-    
+
     // Start is called before the first frame update
     void Start()
     {
-        thePlayer = FindObjectOfType<Player>();
-
-        if(startPoint == thePlayer.currentMapName)
-        {
+            thePlayer = FindObjectOfType<Player>();
             thePlayer.transform.position = this.transform.position;
-        }
+        
     }
 
     // Update is called once per frame

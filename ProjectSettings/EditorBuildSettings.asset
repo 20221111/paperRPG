@@ -11,4 +11,31 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/nmy/Scene/nmy_test.unity
     guid: f34782a33ef50bd4f9506e917ac45974
+  - enabled: 1
+    path: Assets/CR/Scene/Forest_S.unity
+    guid: 6917c9287af61534e82bc01d122655fd
+  - enabled: 1
+    path: Assets/CR/Scene/Forest_E.unity
+    guid: 2494905dac80b0e4f856e0363dc7f9b1
+  - enabled: 1
+    path: Assets/CR/Scene/Forest_N.unity
+    guid: 0034353787c891b4fa09696a411a4cbf
+  - enabled: 1
+    path: Assets/CR/Scene/Forest_W.unity
+    guid: 65648cb087916914db72f63688c40a54
+  - enabled: 1
+    path: Assets/CR/Scene/Lake.unity
+    guid: f8de5a0f53e98cb40ae5c396583650d8
+  - enabled: 1
+    path: Assets/CR/Scene/Sky.unity
+    guid: a536ae7449e89bc4ea0c0559b09e018e
+  - enabled: 1
+    path: Assets/CR/Scene/Swamp.unity
+    guid: 169662699e01fa944b2a9f52fe0c49f3
+  - enabled: 1
+    path: Assets/CR/Scene/Volcano.unity
+    guid: 7ba1bab73e46ec34699a8ef84e13eac6
+  - enabled: 1
+    path: Assets/CR/Scene/Town.unity
+    guid: 0b751e41070cad3409f02da5348dc641
   m_configObjects: {}
