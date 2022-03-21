@@ -1,0 +1,132 @@
+{
+    "target": [
+        {
+            "name": "bunny",
+            "nextMove": 0,
+            "HP": 1584,
+            "attack": 55,
+            "Exp": 14,
+            "Money": 158
+        },
+        {
+            "name": "alligator",
+            "nextMove": 0,
+            "HP": 2112,
+            "attack": 75,
+            "Exp": 34,
+            "Money": 211
+        },
+        {
+            "name": "wolf",
+            "nextMove": 0,
+            "HP": 2640,
+            "attack": 95,
+            "Exp": 86,
+            "Money": 264
+        },
+        {
+            "name": "wisp",
+            "nextMove": 0,
+            "HP": 3168,
+            "attack": 115,
+            "Exp": 213,
+            "Money": 317
+        },
+        {
+            "name": "harpy",
+            "nextMove": 0,
+            "HP": 3696,
+            "attack": 134,
+            "Exp": 530,
+            "Money": 370
+        },
+        {
+            "name": "werewolf",
+            "nextMove": 0,
+            "HP": 8553,
+            "attack": 154,
+            "Exp": 123,
+            "Money": 855
+        },
+        {
+            "name": "Goblin",
+            "nextMove": 0,
+            "HP": 10137,
+            "attack": 184,
+            "Exp": 307,
+            "Money": 1014
+        },
+        {
+            "name": "griffin",
+            "nextMove": 0,
+            "HP": 11721,
+            "attack": 213,
+            "Exp": 763,
+            "Money": 1172
+        },
+        {
+            "name": "bunny",
+            "nextMove": 0,
+            "HP": 1584,
+            "attack": 55,
+            "Exp": 14,
+            "Money": 158
+        },
+        {
+            "name": "alligator",
+            "nextMove": 0,
+            "HP": 2112,
+            "attack": 75,
+            "Exp": 34,
+            "Money": 211
+        },
+        {
+            "name": "wolf",
+            "nextMove": 0,
+            "HP": 2640,
+            "attack": 95,
+            "Exp": 86,
+            "Money": 264
+        },
+        {
+            "name": "wisp",
+            "nextMove": 0,
+            "HP": 3168,
+            "attack": 115,
+            "Exp": 213,
+            "Money": 317
+        },
+        {
+            "name": "harpy",
+            "nextMove": 0,
+            "HP": 3696,
+            "attack": 134,
+            "Exp": 530,
+            "Money": 370
+        },
+        {
+            "name": "werewolf",
+            "nextMove": 0,
+            "HP": 8553,
+            "attack": 154,
+            "Exp": 123,
+            "Money": 855
+        },
+        {
+            "name": "Goblin",
+            "nextMove": 0,
+            "HP": 10137,
+            "attack": 184,
+            "Exp": 307,
+            "Money": 1014
+        },
+        {
+            "name": "griffin",
+            "nextMove": 0,
+            "HP": 11721,
+            "attack": 213,
+            "Exp": 763,
+            "Money": 1172
+        }
+    ]
+}

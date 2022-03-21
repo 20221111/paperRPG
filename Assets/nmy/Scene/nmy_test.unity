@@ -18658,55 +18658,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ce8a8195319f6418502d8aee8408a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-  - name: bunny
-    nextMove: 0
-    HP: 1584
-    attack: 55
-    Exp: 14
-    Money: 158
-  - name: bunny
-    nextMove: 0
-    HP: 1584
-    attack: 55
-    Exp: 14
-    Money: 158
-  - name: bunny
-    nextMove: 0
-    HP: 1584
-    attack: 55
-    Exp: 14
-    Money: 158
-  - name: bunny
-    nextMove: 0
-    HP: 1584
-    attack: 55
-    Exp: 14
-    Money: 158
-  - name: bunny
-    nextMove: 0
-    HP: 1584
-    attack: 55
-    Exp: 14
-    Money: 158
-  - name: bunny
-    nextMove: 0
-    HP: 1584
-    attack: 55
-    Exp: 14
-    Money: 158
-  - name: bunny
-    nextMove: 0
-    HP: 1584
-    attack: 55
-    Exp: 14
-    Money: 158
-  - name: bunny
-    nextMove: 0
-    HP: 1584
-    attack: 55
-    Exp: 14
-    Money: 158
 --- !u!1 &1183790427
 GameObject:
   m_ObjectHideFlags: 0

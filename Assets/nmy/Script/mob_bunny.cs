@@ -10,10 +10,7 @@ public class mob_bunny : Mobs
     {
         base.Start();
         name = "bunny";
-        HP = 1584;
-        attack = 55;
-        Exp = 14;
-        Money = 158;
+        
     }
 
     // Update is called once per frame

@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Text;
+
 
 public class Mobs : MonoBehaviour
 {
@@ -8,6 +11,7 @@ public class Mobs : MonoBehaviour
     CapsuleCollider2D mobscollider;
     SpriteRenderer spriteRenderer;
     Animator anim;
+    string mobData;
     public string mobName;
     public int nextMove;
     public int HP;
@@ -15,18 +19,13 @@ public class Mobs : MonoBehaviour
     public int Exp;
     public int Money;
 
+
     //초기화
     public virtual void Start() 
     {
       rigid = GetComponent<Rigidbody2D>();
       spriteRenderer = GetComponent<SpriteRenderer>();
       mobscollider = GetComponent<CapsuleCollider2D>();
-
-        mobName = "mob";
-        HP = 10;
-        attack = 10;
-        Exp = 1000;
-        Money = 100;
 
         Think();
         Invoke("Think", 5);
