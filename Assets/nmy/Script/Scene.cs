@@ -20,6 +20,6 @@ public class Scene : MonoBehaviour
     //인트로에서 게임 씬으로 넘어감
     public void IntroTOGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(9);
     }
 }

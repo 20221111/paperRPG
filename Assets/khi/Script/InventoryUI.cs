@@ -20,8 +20,8 @@ public class InventoryUI : MonoBehaviour
         inven = Inventory.instance;
         slots = slotHolder.GetComponentsInChildren<Slot>();
         inven.onChangeItem += RedrawSlotUI;
-        potionShop.SetActive(false);
-        closePotionShop.onClick.AddListener(DeActiveShop);
+        //potionShop.SetActive(false);
+        //closePotionShop.onClick.AddListener(DeActiveShop);
     }
 
     // Update is called once per frame
