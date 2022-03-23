@@ -27,6 +27,7 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         slotCount = 20;
+
     }
 
     public void RemoveItem(int index)

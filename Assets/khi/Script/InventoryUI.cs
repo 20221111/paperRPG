@@ -5,21 +5,21 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-    Inventory inven;
+    public List<Item> items;
 
     public GameObject inventoryPanel;
     bool activateInventory = false;
-
+    [SerializeField]
     public Slot[] slots;
-    public Transform slotHolder;
+    [SerializeField]
+    public Transform slotParent;
 
     // Start is called before the first frame update
     void Start()
     {
         inventoryPanel.SetActive(activateInventory);
-        inven = Inventory.instance;
-        slots = slotHolder.GetComponentsInChildren<Slot>();
-        inven.onChangeItem += RedrawSlotUI;
+        slots = slotParent.GetComponentsInChildren<Slot>();
+        FreshSlot();
         //potionShop.SetActive(false);
         //closePotionShop.onClick.AddListener(DeActiveShop);
     }
@@ -31,56 +31,52 @@ public class InventoryUI : MonoBehaviour
         {
             activateInventory = !activateInventory;
             inventoryPanel.SetActive(activateInventory);
-            Debug.Log("i키 누름");
         }
-        if (Input.GetMouseButtonUp(0))
-            RayPotionShop();
     }
-    private void SlotNumber()
+    public void FreshSlot()
     {
-        for (int i = 0; i < slots.Length; i++)
-            slots[i].slotnum = i;
-    }
-
-    void RedrawSlotUI()
-    {
-        for (int i = 0; i < slots.Length; i++)
+        int i = 0;
+        for(; i < items.Count && i < slots.Length; i++)
         {
-            slots[i].RemoveSlot();
+            slots[i].item = items[i];
         }
-        for(int i = 0; i < inven.items.Count; i++)
+        for(; i < slots.Length; i++)
         {
-            slots[i].item = inven.items[i];
-            slots[i].UpdateSlotUI();
+            slots[i].item = null;
         }
     }
 
-    public GameObject potionShop;
-    public Button closePotionShop;
-
-    public void RayPotionShop()
+    public void AddItem(Item _item)
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = -10;
-        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(-1))
+        if (items.Count < slots.Length)
         {
-            RaycastHit2D hit2D = Physics2D.Raycast(mousePos, transform.forward, 30);
-            if (hit2D.collider != null)
+            items.Add(_item); FreshSlot();
+        }
+    }
+    public void AcquireItem(Item _item, int _count = 1)
+    {
+        if (Item.ItemType.Equip != _item.itemType)
+        {
+            for (int i = 0; i < slots.Length; i++)
             {
-                if (hit2D.collider.CompareTag("Store"))
+                if (slots[i].item != null)  // null 이라면 slots[i].item.itemName 할 때 런타임 에러 나서
                 {
-                    ActiveShop(true);
+                    if (slots[i].item.itemName == _item.itemName)
+                    {
+                        slots[i].SetSlotCount(_count);
+                        return;
+                    }
                 }
             }
         }
-    }
 
-    public void ActiveShop(bool isOpen)
-    {
-        potionShop.SetActive(isOpen);
-    }
-    public void DeActiveShop()
-    {
-        ActiveShop(false);
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item == null)
+            {
+                slots[i].AddItem(_item, _count);
+                return;
+            }
+        }
     }
 }

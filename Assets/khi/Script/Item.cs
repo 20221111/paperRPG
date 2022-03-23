@@ -2,32 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType
-{
-    Use,
-    Equip,
-    Quest,
-    ETC
-}
-
 [System.Serializable]
-public class Item
+[CreateAssetMenu(fileName = "New Item", menuName ="New Item/item")]
+public class Item :ScriptableObject
 {
+    public enum ItemType
+    {
+        Use,
+        Equip,
+        Quest,
+        ETC
+    }
+
     public ItemType itemType;
     public string itemName;
     public string itemDescription;
     public Sprite itemImage;
     public int itemCount;
-    public List<ItemEffect> efts;
+    public GameObject itemPrefab;
 
-    // Start is called before the first frame update
-    public bool Use()
-    {
-        bool isUsed = false;
-        foreach(ItemEffect eft in efts)
-        {
-            isUsed = eft.ExcuteRole();
-        }
-        return false;
-    }
+    public string weaponType;
+    public bool isEquip;
 }
