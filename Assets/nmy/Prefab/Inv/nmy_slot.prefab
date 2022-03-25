@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6895808669540980858}
   - component: {fileID: 6895808669540980859}
   - component: {fileID: 6895808669540980860}
+  - component: {fileID: 4793052796927855086}
   m_Layer: 5
   m_Name: nmy_slot
   m_TagString: Untagged
@@ -137,6 +138,20 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &4793052796927855086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6895808669540980862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420591fc54e188f41b44979959b2bf6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  itemimage: {fileID: 7227497109970405045}
 --- !u!1 &7291919540547334138
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,12 +320,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b49948054d8ac4498ff3ff034405cf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemCount: 0
-  item: {fileID: 0}
+  slotnum: 0
+  item:
+    itemType: 0
+    itemName: 
+    itemDescription: 
+    itemImage: {fileID: 0}
+    itemCount: 0
+    efts: []
   itemIcon: {fileID: 7227497109970405045}
-  isEquip: 0
-  ItemTextCount: {fileID: 632392241388912506}
-  ItemCountVisible: {fileID: 8356344064047220704}
 --- !u!1 &8356344064047220704
 GameObject:
   m_ObjectHideFlags: 0

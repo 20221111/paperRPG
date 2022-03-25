@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-[CreateAssetMenu(fileName = "New Item", menuName = "New Item/item")]
-public class nmy_Item : ScriptableObject
+public enum nmy_ItemType
 {
-    public enum ItemType
-    {
-        Use,
-        Equip,
-        Quest,
-        ETC
-    }
+    Use,
+    Equip,
+    Quest,
+    ETC
+}
+
+[System.Serializable]
+public class nmy_Item : MonoBehaviour
+{
 
     public ItemType itemType;
     public string itemName;
@@ -23,4 +23,10 @@ public class nmy_Item : ScriptableObject
 
     public string weaponType;
     public bool isEquip;
+
+    public bool Use()
+    {
+        return false;
+    }
 }
+
