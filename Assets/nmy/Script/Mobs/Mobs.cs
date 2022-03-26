@@ -14,10 +14,10 @@ public class Mobs : MonoBehaviour
     string mobData;
     public string mobName;
     public int nextMove;
-    public int HP;
-    public int attack;
+    public float HP;
+    public float attack;
     public int Exp;
-    public int Money;
+    public float Money;
 
 
     //초기화
@@ -27,7 +27,13 @@ public class Mobs : MonoBehaviour
       spriteRenderer = GetComponent<SpriteRenderer>();
       mobscollider = GetComponent<CapsuleCollider2D>();
 
-        Think();
+        mobName = "mob";
+        HP = 100;
+        attack = 10;
+        Exp = 100;
+        Money = 10;
+
+    Think();
         Invoke("Think", 5);
     }
 
@@ -37,7 +43,7 @@ public class Mobs : MonoBehaviour
         rigid.velocity = new Vector2(nextMove, rigid.velocity.y);
 
         //Platform check
-        Vector2 FrontVec = new Vector2(rigid.position.x + nextMove*0.2f, rigid.position.y+1);
+        Vector2 FrontVec = new Vector2(rigid.position.x + nextMove*0.2f, rigid.position.y-0.5f);
         Debug.DrawRay(FrontVec, Vector3.down, new Color(0,1,0));
         RaycastHit2D rayHit = Physics2D.Raycast(FrontVec, Vector3.down, 1, LayerMask.GetMask("Platform"));
             if(rayHit.collider == null){
@@ -80,7 +86,7 @@ public class Mobs : MonoBehaviour
 
 
     //플레이어에게 피격시 자신의 채력을 낮춤
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         HP -= damage;
         rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);

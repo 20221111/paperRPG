@@ -24,7 +24,8 @@ public class Player : MonoBehaviour
     public int level = 1;
     public int exp = 0;
     public int[] maxexp = { 2040, 4536, 7589, 11321, 15883, 21457, 28265, 36578, 46726, 59109, 74217, 92644, 115112, 142502, 175884, 216559, 266108, 326454, 399934, 489389, 598268, 730762, 891964, 1088056, 1326547 };
-    public int hp = 1000, maxHp = 1000, mp = 850, maxMp = 850, attackDamage = 100;
+    public float hp = 1000, maxHp = 1000, mp = 850, maxMp = 850, attackDamage = 100;
+    public float stress = 1000, MaxStress = 1000;
 
     public nmy_Item equipmunt; //플레이어가 장착하고 있는 아이탬
 
@@ -76,6 +77,11 @@ public class Player : MonoBehaviour
 
     }
     void Update() {
+
+        //플레이어의 채력을 재생
+        playerHPRegen();
+        //플레이어의 정신력을 관리
+        PlayerStressManager();
 
 
         //플레이어가 공격을 하는 매소드
@@ -137,9 +143,9 @@ public class Player : MonoBehaviour
 
         //이동속도가 0.3이하로 내려갈 경우 이동 애니매이션 종료
         if (Mathf.Abs(rigid.velocity.x) < 0.3)
-      anim.SetBool("waking", false);
-      else
-      anim.SetBool("waking", true);
+            anim.SetBool("waking", false);
+        else
+            anim.SetBool("waking", true);
 
 
     }
@@ -181,7 +187,7 @@ public class Player : MonoBehaviour
 
         //플레이어가 데미지를 입고 적 반대방향으로 밀려나게함 (데미지를 입는중에는 더 이상의 데미지를 입지 않도록 함)
         //플레이어의 채력을 damage만큼 낮춤
-        void OnDamaged(Vector2 targetPos,int damage)
+        void OnDamaged(Vector2 targetPos,float damage)
         {
             if (!anim.GetBool("jumping"))
             {
@@ -284,7 +290,65 @@ public class Player : MonoBehaviour
     {
         gameObject.transform.Find(equipmunt.name + "(Clone)").GetComponent<nmy_Item>().Destroy();
         this.equipmunt = null;
+
     }
+
+    //플레이어 채력이 재생되는 매소드
+    public void playerHPRegen()
+    {
+        if (hp != maxHp)
+        {
+            //초당 최대 채력의 1/500 회복
+            hp += Time.deltaTime * (float)(maxHp / 500);//실행시 회복량이 1을 넘지 못해 값이 전부 버려져 회복이 되지 않음
+
+            //채력을 회복했는데 최대 채력보다 크다면 현재채력을 최대채력으로 변경
+            if (hp > maxHp)
+            {
+                hp = maxHp;
+            }
+            UIBarController();
+
+        }
+    }
+
+    //플레이어 정신력 관리 매소드
+    public void PlayerStressManager()
+    {
+
+        if (currentMapName == "Town")
+        {
+            if (stress != MaxStress)
+            {
+                //초당 최대 정신력의 1/200 회복
+                stress += Time.deltaTime * (float)(MaxStress / 200);
+
+                //정신력을 회복했는데 최대 정신력보다 크다면 현재정신력을 최대정신력으로 변경
+                if (stress > MaxStress)
+                {
+                    stress = MaxStress;
+                }
+
+            }
+        }
+        else
+        {
+            if (stress >= 0)
+            {
+                //초당 최대 정신력의 1/600 씩 감소
+                Debug.Log("정신력 감소:" + Time.deltaTime * (float)(MaxStress / 600));
+                stress -= Time.deltaTime * (float)(MaxStress / 600);
+
+                //정신력이 감소했는데 0보다 작다면 현재정신력을 0으로 변경
+                if (stress < 0)
+                {
+                    Debug.Log("정신력 최하치 경고");
+                    stress = 0;
+                }
+
+            }
+        }
+    }
+
 
     //디버그용 메소드
     private void OnDrawGizmos()
