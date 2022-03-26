@@ -35,6 +35,7 @@ public class nmy_InventoryUI : MonoBehaviour
         }
     }
 
+    //인벤토리 슬롯을 초기화하고 인벤토리에 아이탬을 읽어들이는 메소드
     void RedrawSlotUI()
     {
         for (int i = 0; i < slots.Length; i++)

@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     public int[] maxexp = { 2040, 4536, 7589, 11321, 15883, 21457, 28265, 36578, 46726, 59109, 74217, 92644, 115112, 142502, 175884, 216559, 266108, 326454, 399934, 489389, 598268, 730762, 891964, 1088056, 1326547 };
     public int hp = 1000, maxHp = 1000, mp = 850, maxMp = 850, attackDamage = 100;
 
+    public nmy_Item equipmunt; //플레이어가 장착하고 있는 아이탬
+
     public Slider[] infoBar;
     public Text LV;
 
@@ -209,6 +211,7 @@ public class Player : MonoBehaviour
             spriteRenderer.color = new Color(1, 1, 1, 1);
         }
 
+    //플레이어가 죽으면 시간을 멈춤
     public void DIe()
     {
         spriteRenderer.color = new Color(1, 1, 1, 0.5f);
@@ -216,41 +219,17 @@ public class Player : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    //몬스터가 죽을경우 호출되는 함수
     public void MobDIe(Collider2D collider)
     {
-        exp += collider.GetComponent<Mobs>().Exp;
+        exp += collider.GetComponent<Mobs>().Exp; //몬스터의 경험치를 가져와 플레이어에게 지급
 
-        if (maxexp[level - 1] <= exp)
+        if (maxexp[level - 1] <= exp)//경험치량에 맞춰서 레벨업 해줌
         {
             Levelup();
         }
 
-        UIBarController();
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        //동전을 먹으면 점수가 오르게 함
-        if (collision.gameObject.tag == "Item")
-        {
-            bool isBronze = collision.gameObject.name.Contains("Bronze");
-            bool isGold = collision.gameObject.name.Contains("Gold");
-            bool isSilver = collision.gameObject.name.Contains("Silver");
-
-            if (isBronze)
-                gameManager.stagepoint += 10;
-            else if (isSilver)
-                gameManager.stagepoint += 20;
-            else if (isGold)
-                gameManager.stagepoint += 30;
-
-            collision.gameObject.SetActive(false);
-        }
-        //종점에 도착하면 다음스테이지로 이동함
-        else if (collision.gameObject.tag == "Finish")
-        {
-            gameManager.NextStage();
-        }
+        UIBarController(); //barUI를 업데이트함
     }
 
     void Levelup()
@@ -290,6 +269,21 @@ public class Player : MonoBehaviour
     void UItextController()
     {
         LV.text = "LV." + level;
+    }
+
+    //플레이어 하위 오브젝트로 장착된 아이탬을 생성
+    public void PlayerEquip(nmy_Item equipmunt)
+    {
+        Instantiate(equipmunt.itemPrefab, this.transform);
+        this.equipmunt = equipmunt;
+        Debug.Log(equipmunt.name);
+    }
+
+    //장비를 해제 할 경우 플레이어 하위 오브젝트 장비를 삭제함 
+    public void PlayerUnEquip(nmy_Item equipmunt)
+    {
+        gameObject.transform.Find(equipmunt.name + "(Clone)").GetComponent<nmy_Item>().Destroy();
+        this.equipmunt = null;
     }
 
     //디버그용 메소드
