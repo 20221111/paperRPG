@@ -141,6 +141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transferMapName: Town
+  targetObj: {fileID: 0}
+  toObj: {fileID: 0}
 --- !u!1 &1102366874
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,6 +242,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transferMapName: Volcano
+  targetObj: {fileID: 0}
+  toObj: {fileID: 0}
 --- !u!95 &1793220835
 Animator:
   serializedVersion: 3
@@ -348,7 +352,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
 --- !u!1001 &1794479274
 PrefabInstance:
@@ -379,11 +383,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273272789999164405, guid: 578a55d50516f864d86a419a827487ef, type: 3}
       propertyPath: m_Size.x
-      value: 0.64
+      value: 1.28
       objectReference: {fileID: 0}
     - target: {fileID: 273272789999164405, guid: 578a55d50516f864d86a419a827487ef, type: 3}
       propertyPath: m_Size.y
-      value: 0.64
+      value: 1.28
       objectReference: {fileID: 0}
     - target: {fileID: 273272789999164405, guid: 578a55d50516f864d86a419a827487ef, type: 3}
       propertyPath: m_Offset.y
@@ -4719,6 +4723,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5444205855012939720, guid: 578a55d50516f864d86a419a827487ef, type: 3}
       propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5859239292613989724, guid: 578a55d50516f864d86a419a827487ef, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5859239292613989724, guid: 578a55d50516f864d86a419a827487ef, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

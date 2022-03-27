@@ -2815,14 +2815,14 @@ Tilemap:
     m_Data: {fileID: 4294643669078967044, guid: e85c6e02fda4a004b84664f435ad4d73, type: 3}
   - m_RefCount: 133
     m_Data: {fileID: -2658475963797995646, guid: e85c6e02fda4a004b84664f435ad4d73, type: 3}
-  - m_RefCount: 7
-    m_Data: {fileID: -8555344763861739660, guid: e85c6e02fda4a004b84664f435ad4d73, type: 3}
-  - m_RefCount: 3
-    m_Data: {fileID: -5365963968028550086, guid: e85c6e02fda4a004b84664f435ad4d73, type: 3}
-  - m_RefCount: 6
-    m_Data: {fileID: 1982798753367972342, guid: e85c6e02fda4a004b84664f435ad4d73, type: 3}
-  - m_RefCount: 6
-    m_Data: {fileID: 8506730005712635708, guid: e85c6e02fda4a004b84664f435ad4d73, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 221
     m_Data:
@@ -3024,7 +3024,7 @@ GameObject:
   - component: {fileID: 8227975084397584066}
   - component: {fileID: 8227975084397584069}
   - component: {fileID: 8227975084397584068}
-  - component: {fileID: 8227975084397584071}
+  - component: {fileID: 4768351929703928035}
   m_Layer: 0
   m_Name: startgate (W)
   m_TagString: Untagged
@@ -3142,7 +3142,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
---- !u!114 &8227975084397584071
+--- !u!114 &4768351929703928035
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3151,7 +3151,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8227975084397584089}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 456d803b301a28442adc3007b0ca35a9, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b5727d8f8728a44abe07f3972f98d3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   transferMapName: Forest_W
+  targetObj: {fileID: 0}
+  toObj: {fileID: 0}

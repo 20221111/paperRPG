@@ -2542,7 +2542,7 @@ GameObject:
   - component: {fileID: 1817238768623956007}
   - component: {fileID: 1817238768623956006}
   - component: {fileID: 1817238768623956025}
-  - component: {fileID: 1817238768623956024}
+  - component: {fileID: 4209300871561303992}
   m_Layer: 0
   m_Name: startgate (S)
   m_TagString: Untagged
@@ -2660,7 +2660,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
---- !u!114 &1817238768623956024
+--- !u!114 &4209300871561303992
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2669,10 +2669,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1817238768623956026}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 456d803b301a28442adc3007b0ca35a9, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b5727d8f8728a44abe07f3972f98d3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   transferMapName: Forest_S
+  targetObj: {fileID: 0}
+  toObj: {fileID: 0}
 --- !u!1 &1817238768784599834
 GameObject:
   m_ObjectHideFlags: 0

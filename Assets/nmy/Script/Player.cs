@@ -29,7 +29,8 @@ public class Player : MonoBehaviour
     public Slider[] infoBar;
     public Text LV;
 
-
+    //맵 이동시 플레이어 이동제한
+    public bool isControl;
 
 
     void Awake() {
@@ -44,6 +45,8 @@ public class Player : MonoBehaviour
         { 
             Destroy(this.gameObject);
         }
+
+        isControl = true; //플레이어의 움직임 허용
 
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -144,28 +147,35 @@ public class Player : MonoBehaviour
     
     void FixedUpdate()
     {
-        //수평움직임이 입력 될 경우 오브젝트의 속도만큼 오브젝트에 힘을 가함
-        float h = Input.GetAxisRaw("Horizontal");
-        rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+        //플레이어의 움직임이 허용된(true일) 경우
+        if (isControl)
+        {
+            //수평움직임이 입력 될 경우 오브젝트의 속도만큼 오브젝트에 힘을 가함
+            float h = Input.GetAxisRaw("Horizontal");
+            rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
-        //만약 현재 오브젝트의 이동속도가 최대속도 이상일 경우 오브젝트의 속도를 최대속도로 조정함
-        if (rigid.velocity.x > maxSpeed)
-          rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);
-        else if (rigid.velocity.x < maxSpeed*(-1))
-          rigid.velocity = new Vector2(maxSpeed*(-1), rigid.velocity.y);
+            //만약 현재 오브젝트의 이동속도가 최대속도 이상일 경우 오브젝트의 속도를 최대속도로 조정함
+            if (rigid.velocity.x > maxSpeed)
+                rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);
+            else if (rigid.velocity.x < maxSpeed * (-1))
+                rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y);
 
-      //플레이어가 착지했는지 뛰는중인지 판별
-      //오브젝트의 y 속도가 음수일 경우 아래방향으로 Raycast를 측정해 "Platform"을 감지
-      if(rigid.velocity.y < 0) {
-      Debug.DrawRay(rigid.position, Vector3.down, new Color(0,1,0));
-      RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
-      //측정된 물리객체와의 거리가 0.7이하일 경우 "jumping"을 false함
-      if(rayHit.collider != null){
-        if(rayHit.distance < 0.7f){
-          anim.SetBool("jumping", false);
+            //플레이어가 착지했는지 뛰는중인지 판별
+            //오브젝트의 y 속도가 음수일 경우 아래방향으로 Raycast를 측정해 "Platform"을 감지
+            if (rigid.velocity.y < 0)
+            {
+                Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0));
+                RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
+                //측정된 물리객체와의 거리가 0.7이하일 경우 "jumping"을 false함
+                if (rayHit.collider != null)
+                {
+                    if (rayHit.distance < 0.7f)
+                    {
+                        anim.SetBool("jumping", false);
+                    }
+                }
+            }
         }
-      }
-      }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
