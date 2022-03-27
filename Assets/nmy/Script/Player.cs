@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
 
     public Slider[] infoBar;
     public Text LV;
+    public Text Strees;
 
 
 
@@ -91,21 +92,7 @@ public class Player : MonoBehaviour
             if (Input.GetButtonDown("Fire1"))
             {
                 //공격
-                attackAnim.SetTrigger("Attack");
-                Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(Pos.position, boxSize, 0);
-                foreach (Collider2D collider in collider2Ds)
-                {
-                    if (collider.tag == "Enemy")
-                    {
-                        collider.GetComponent<Mobs>().TakeDamage(attackDamage);
-                        if (collider.GetComponent<Mobs>().HP <= 0)
-                        {
-                            MobDIe(collider);
-                        }
-                    }
-                }
-
-                curtime = cooltime;
+                playerAttack();
 
             }
 
@@ -185,33 +172,36 @@ public class Player : MonoBehaviour
             OnDamaged(collision.transform.position, collision.gameObject.GetComponent<Mobs>().attack);
         }
 
-        //플레이어가 데미지를 입고 적 반대방향으로 밀려나게함 (데미지를 입는중에는 더 이상의 데미지를 입지 않도록 함)
-        //플레이어의 채력을 damage만큼 낮춤
-        void OnDamaged(Vector2 targetPos,float damage)
+    }
+
+
+    /*--------------------플레이어의 전투를 담당하는 메소드--------------------*/
+
+    //플레이어가 데미지를 입고 적 반대방향으로 밀려나게함 (데미지를 입는중에는 더 이상의 데미지를 입지 않도록 함)
+    //플레이어의 채력을 damage만큼 낮춤
+    void OnDamaged(Vector2 targetPos, float damage)
+    {
+        if (!anim.GetBool("jumping"))
         {
-            if (!anim.GetBool("jumping"))
-            {
-                anim.SetBool("jumping", true);
-                int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
-                rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
-            }
-            gameObject.layer = 11;
-            spriteRenderer.color = new Color(1, 1, 1, 0.4f);
-            hp -= damage;
-            UIBarController();
-            anim.SetTrigger("doDamaged");
+            anim.SetBool("jumping", true);
+            int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
+            rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
+        }
+        gameObject.layer = 11;
+        spriteRenderer.color = new Color(1, 1, 1, 0.4f);
+        hp -= damage;
+        UIBarController();
+        anim.SetTrigger("doDamaged");
 
-            if (hp<=0)
-            {
-                DIe();
-            }
-
-            Invoke("OffDamaged", 2);
+        if (hp <= 0)
+        {
+            DIe();
         }
 
+        Invoke("OffDamaged", 2);
     }
-        //플레이어가 데미지를 전부입고 다시 원래 상태로 되돌아감
-        void OffDamaged()
+    //플레이어가 데미지를 전부입고 다시 원래 상태로 되돌아감
+    void OffDamaged()
         {
             gameObject.layer = 10;
             spriteRenderer.color = new Color(1, 1, 1, 1);
@@ -223,6 +213,37 @@ public class Player : MonoBehaviour
         spriteRenderer.color = new Color(1, 1, 1, 0.5f);
         spriteRenderer.flipY = true;
         Time.timeScale = 0;
+    }
+
+    //플레이어의 현재 공격력을 계산하는 메소드(플레이어 공격력 + 정신력 보정 + 무기공격력)
+    public float PlayerAtackDamage(float playerDamage, float stress)
+    {
+        if (stress <= 400)
+        {
+            return (playerDamage/2);
+        }
+        return playerDamage;
+    }
+
+    //플레이어가 공격 버튼을 누를경우 실행되는 메소드
+    public void playerAttack()
+    {
+        attackAnim.SetTrigger("Attack");
+        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(Pos.position, boxSize, 0);
+        foreach (Collider2D collider in collider2Ds)
+        {
+            if (collider.tag == "Enemy")
+            {
+                collider.GetComponent<Mobs>().TakeDamage(PlayerAtackDamage(attackDamage, stress));
+                Debug.Log(PlayerAtackDamage(attackDamage, stress));
+                if (collider.GetComponent<Mobs>().HP <= 0)
+                {
+                    MobDIe(collider);
+                }
+            }
+        }
+
+        curtime = cooltime;
     }
 
     //몬스터가 죽을경우 호출되는 함수
@@ -238,6 +259,8 @@ public class Player : MonoBehaviour
         UIBarController(); //barUI를 업데이트함
     }
 
+
+    /*--------------------플레이어의 리소스(체력, 레벨, 마나, 장비)를 관리하는 메소드--------------------*/
     void Levelup()
     {
         for (int i = 0; i < maxexp.Length; i++)
@@ -255,26 +278,6 @@ public class Player : MonoBehaviour
                 break;
             }
         }
-    }
-
-    void UIBarController()
-    {
-
-        infoBar[0].value = ((float)hp / (float)maxHp);
-        //현재 경험치량에 맞게 경험치 바를 조정
-        if (level == 1)
-        {
-            infoBar[2].value = (float)exp / maxexp[0];
-        }
-        else
-        {
-            infoBar[2].value = ((float)exp - (maxexp[level - 2])) / ((float)(maxexp[level - 1] - maxexp[level - 2]));
-        }
-    }
-
-    void UItextController()
-    {
-        LV.text = "LV." + level;
     }
 
     //플레이어 하위 오브젝트로 장착된 아이탬을 생성
@@ -335,7 +338,6 @@ public class Player : MonoBehaviour
             if (stress >= 0)
             {
                 //초당 최대 정신력의 1/600 씩 감소
-                Debug.Log("정신력 감소:" + Time.deltaTime * (float)(MaxStress / 600));
                 stress -= Time.deltaTime * (float)(MaxStress / 600);
 
                 //정신력이 감소했는데 0보다 작다면 현재정신력을 0으로 변경
@@ -350,7 +352,32 @@ public class Player : MonoBehaviour
     }
 
 
-    //디버그용 메소드
+
+    /*--------------------플레이어의 UI를 담당하는 메소드--------------------*/
+    void UIBarController()
+    {
+
+        infoBar[0].value = ((float)hp / (float)maxHp);
+        //현재 경험치량에 맞게 경험치 바를 조정
+        if (level == 1)
+        {
+            infoBar[2].value = (float)exp / maxexp[0];
+        }
+        else
+        {
+            infoBar[2].value = ((float)exp - (maxexp[level - 2])) / ((float)(maxexp[level - 1] - maxexp[level - 2]));
+        }
+    }
+
+    void UItextController()
+    {
+        LV.text = "LV." + level;
+    }
+
+
+
+    /*--------------------플레이어 디버그용 메소드 (없어도 실행에 문제가 없음)--------------------*/
+    //디버그용 메소드 (Sceen 뷰에서 플레이어의 평타 공격 범위를 보여줌)
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
