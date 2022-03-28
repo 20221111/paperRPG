@@ -24,10 +24,14 @@ public class Player : MonoBehaviour
     public int level = 1;
     public int exp = 0;
     public int[] maxexp = { 2040, 4536, 7589, 11321, 15883, 21457, 28265, 36578, 46726, 59109, 74217, 92644, 115112, 142502, 175884, 216559, 266108, 326454, 399934, 489389, 598268, 730762, 891964, 1088056, 1326547 };
-    public int hp = 1000, maxHp = 1000, mp = 850, maxMp = 850, attackDamage = 100;
+    public float hp = 1000, maxHp = 1000, mp = 850, maxMp = 850, attackDamage = 100;
+    public float stress = 1000, MaxStress = 1000;
+
+    public nmy_Item equipmunt; //플레이어가 장착하고 있는 아이탬
 
     public Slider[] infoBar;
     public Text LV;
+    public Text Strees;
 
     //맵 이동시 플레이어 이동제한
     public bool isControl;
@@ -78,6 +82,11 @@ public class Player : MonoBehaviour
     }
     void Update() {
 
+        //플레이어의 채력을 재생
+        playerHPRegen();
+        //플레이어의 정신력을 관리
+        PlayerStressManager();
+
 
         //플레이어가 공격을 하는 매소드
         if (curtime <= 0)
@@ -86,21 +95,7 @@ public class Player : MonoBehaviour
             if (Input.GetButtonDown("Fire1"))
             {
                 //공격
-                attackAnim.SetTrigger("Attack");
-                Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(Pos.position, boxSize, 0);
-                foreach (Collider2D collider in collider2Ds)
-                {
-                    if (collider.tag == "Enemy")
-                    {
-                        collider.GetComponent<Mobs>().TakeDamage(attackDamage);
-                        if (collider.GetComponent<Mobs>().HP <= 0)
-                        {
-                            MobDIe(collider);
-                        }
-                    }
-                }
-
-                curtime = cooltime;
+                playerAttack();
 
             }
 
@@ -138,9 +133,9 @@ public class Player : MonoBehaviour
 
         //이동속도가 0.3이하로 내려갈 경우 이동 애니매이션 종료
         if (Mathf.Abs(rigid.velocity.x) < 0.3)
-      anim.SetBool("waking", false);
-      else
-      anim.SetBool("waking", true);
+            anim.SetBool("waking", false);
+        else
+            anim.SetBool("waking", true);
 
 
     }
@@ -187,38 +182,42 @@ public class Player : MonoBehaviour
             OnDamaged(collision.transform.position, collision.gameObject.GetComponent<Mobs>().attack);
         }
 
-        //플레이어가 데미지를 입고 적 반대방향으로 밀려나게함 (데미지를 입는중에는 더 이상의 데미지를 입지 않도록 함)
-        //플레이어의 채력을 damage만큼 낮춤
-        void OnDamaged(Vector2 targetPos,int damage)
+    }
+
+
+    /*--------------------플레이어의 전투를 담당하는 메소드--------------------*/
+
+    //플레이어가 데미지를 입고 적 반대방향으로 밀려나게함 (데미지를 입는중에는 더 이상의 데미지를 입지 않도록 함)
+    //플레이어의 채력을 damage만큼 낮춤
+    void OnDamaged(Vector2 targetPos, float damage)
+    {
+        if (!anim.GetBool("jumping"))
         {
-            if (!anim.GetBool("jumping"))
-            {
-                anim.SetBool("jumping", true);
-                int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
-                rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
-            }
-            gameObject.layer = 11;
-            spriteRenderer.color = new Color(1, 1, 1, 0.4f);
-            hp -= damage;
-            UIBarController();
-            anim.SetTrigger("doDamaged");
+            anim.SetBool("jumping", true);
+            int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
+            rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
+        }
+        gameObject.layer = 11;
+        spriteRenderer.color = new Color(1, 1, 1, 0.4f);
+        hp -= damage;
+        UIBarController();
+        anim.SetTrigger("doDamaged");
 
-            if (hp<=0)
-            {
-                DIe();
-            }
-
-            Invoke("OffDamaged", 2);
+        if (hp <= 0)
+        {
+            DIe();
         }
 
+        Invoke("OffDamaged", 2);
     }
-        //플레이어가 데미지를 전부입고 다시 원래 상태로 되돌아감
-        void OffDamaged()
+    //플레이어가 데미지를 전부입고 다시 원래 상태로 되돌아감
+    void OffDamaged()
         {
             gameObject.layer = 10;
             spriteRenderer.color = new Color(1, 1, 1, 1);
         }
 
+    //플레이어가 죽으면 시간을 멈춤
     public void DIe()
     {
         spriteRenderer.color = new Color(1, 1, 1, 0.5f);
@@ -226,43 +225,52 @@ public class Player : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    //플레이어의 현재 공격력을 계산하는 메소드(플레이어 공격력 + 정신력 보정 + 무기공격력)
+    public float PlayerAtackDamage(float playerDamage, float stress)
+    {
+        if (stress <= 400)
+        {
+            return (playerDamage/2);
+        }
+        return playerDamage;
+    }
+
+    //플레이어가 공격 버튼을 누를경우 실행되는 메소드
+    public void playerAttack()
+    {
+        attackAnim.SetTrigger("Attack");
+        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(Pos.position, boxSize, 0);
+        foreach (Collider2D collider in collider2Ds)
+        {
+            if (collider.tag == "Enemy")
+            {
+                collider.GetComponent<Mobs>().TakeDamage(PlayerAtackDamage(attackDamage, stress));
+                Debug.Log(PlayerAtackDamage(attackDamage, stress));
+                if (collider.GetComponent<Mobs>().HP <= 0)
+                {
+                    MobDIe(collider);
+                }
+            }
+        }
+
+        curtime = cooltime;
+    }
+
+    //몬스터가 죽을경우 호출되는 함수
     public void MobDIe(Collider2D collider)
     {
-        exp += collider.GetComponent<Mobs>().Exp;
+        exp += collider.GetComponent<Mobs>().Exp; //몬스터의 경험치를 가져와 플레이어에게 지급
 
-        if (maxexp[level - 1] <= exp)
+        if (maxexp[level - 1] <= exp)//경험치량에 맞춰서 레벨업 해줌
         {
             Levelup();
         }
 
-        UIBarController();
+        UIBarController(); //barUI를 업데이트함
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        //동전을 먹으면 점수가 오르게 함
-        if (collision.gameObject.tag == "Item")
-        {
-            bool isBronze = collision.gameObject.name.Contains("Bronze");
-            bool isGold = collision.gameObject.name.Contains("Gold");
-            bool isSilver = collision.gameObject.name.Contains("Silver");
 
-            if (isBronze)
-                gameManager.stagepoint += 10;
-            else if (isSilver)
-                gameManager.stagepoint += 20;
-            else if (isGold)
-                gameManager.stagepoint += 30;
-
-            collision.gameObject.SetActive(false);
-        }
-        //종점에 도착하면 다음스테이지로 이동함
-        else if (collision.gameObject.tag == "Finish")
-        {
-            gameManager.NextStage();
-        }
-    }
-
+    /*--------------------플레이어의 리소스(체력, 레벨, 마나, 장비)를 관리하는 메소드--------------------*/
     void Levelup()
     {
         for (int i = 0; i < maxexp.Length; i++)
@@ -282,6 +290,80 @@ public class Player : MonoBehaviour
         }
     }
 
+    //플레이어 하위 오브젝트로 장착된 아이탬을 생성
+    public void PlayerEquip(nmy_Item equipmunt)
+    {
+        Instantiate(equipmunt.itemPrefab, this.transform);
+        this.equipmunt = equipmunt;
+        Debug.Log(equipmunt.name);
+    }
+
+    //장비를 해제 할 경우 플레이어 하위 오브젝트 장비를 삭제함 
+    public void PlayerUnEquip(nmy_Item equipmunt)
+    {
+        gameObject.transform.Find(equipmunt.name + "(Clone)").GetComponent<nmy_Item>().Destroy();
+        this.equipmunt = null;
+
+    }
+
+    //플레이어 채력이 재생되는 매소드
+    public void playerHPRegen()
+    {
+        if (hp != maxHp)
+        {
+            //초당 최대 채력의 1/500 회복
+            hp += Time.deltaTime * (float)(maxHp / 500);//실행시 회복량이 1을 넘지 못해 값이 전부 버려져 회복이 되지 않음
+
+            //채력을 회복했는데 최대 채력보다 크다면 현재채력을 최대채력으로 변경
+            if (hp > maxHp)
+            {
+                hp = maxHp;
+            }
+            UIBarController();
+
+        }
+    }
+
+    //플레이어 정신력 관리 매소드
+    public void PlayerStressManager()
+    {
+
+        if (currentMapName == "Town")
+        {
+            if (stress != MaxStress)
+            {
+                //초당 최대 정신력의 1/200 회복
+                stress += Time.deltaTime * (float)(MaxStress / 200);
+
+                //정신력을 회복했는데 최대 정신력보다 크다면 현재정신력을 최대정신력으로 변경
+                if (stress > MaxStress)
+                {
+                    stress = MaxStress;
+                }
+
+            }
+        }
+        else
+        {
+            if (stress >= 0)
+            {
+                //초당 최대 정신력의 1/600 씩 감소
+                stress -= Time.deltaTime * (float)(MaxStress / 600);
+
+                //정신력이 감소했는데 0보다 작다면 현재정신력을 0으로 변경
+                if (stress < 0)
+                {
+                    Debug.Log("정신력 최하치 경고");
+                    stress = 0;
+                }
+
+            }
+        }
+    }
+
+
+
+    /*--------------------플레이어의 UI를 담당하는 메소드--------------------*/
     void UIBarController()
     {
 
@@ -302,7 +384,10 @@ public class Player : MonoBehaviour
         LV.text = "LV." + level;
     }
 
-    //디버그용 메소드
+
+
+    /*--------------------플레이어 디버그용 메소드 (없어도 실행에 문제가 없음)--------------------*/
+    //디버그용 메소드 (Sceen 뷰에서 플레이어의 평타 공격 범위를 보여줌)
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
