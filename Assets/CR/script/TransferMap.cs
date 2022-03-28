@@ -24,7 +24,7 @@ public class TransferMap : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         //위쪽 방향키를 누르면 이동할 맵으로 이동 +지정된 위치로 이동
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if(Input.GetKey(KeyCode.UpArrow))
         {
             //포탈에 부딪힌 객체가 player일때
             if (collision.gameObject.name == "player")
