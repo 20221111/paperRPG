@@ -20,23 +20,22 @@ public class TransferMap : MonoBehaviour
         thePlayer = FindObjectOfType<Player>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        //포탈에 부딪힌 객체가 player일때
-        if(collision.gameObject.name == "player")
-        {
-            //플레이어의 현재 맵 = 이동할 맵
-            thePlayer.currentMapName = transferMapName;
-        }
-    }
-
+ 
     private void OnTriggerStay2D(Collider2D collision)
     {
         //위쪽 방향키를 누르면 이동할 맵으로 이동 +지정된 위치로 이동
         if(Input.GetKeyDown(KeyCode.UpArrow))
         {
-            SceneManager.LoadScene(transferMapName);
-            thePlayer.transform.position = new Vector3(0, 0, 0);
+            //포탈에 부딪힌 객체가 player일때
+            if (collision.gameObject.name == "player")
+            {
+                //플레이어의 현재 맵 = 이동할 맵
+                thePlayer.currentMapName = transferMapName;
+
+                SceneManager.LoadScene(transferMapName);
+                thePlayer.transform.position = new Vector3(0, 0, 0);
+            }
+
         }
     }
 
