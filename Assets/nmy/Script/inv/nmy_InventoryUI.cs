@@ -16,6 +16,10 @@ public class nmy_InventoryUI : MonoBehaviour
     [SerializeField]
     public Transform slotHolder; //슬롯을 하위 오브젝트로 가지고 있는 슬롯홀더 인스턴스를 저장할 공간
 
+    public nmy_Item WC; //테스트용 아이탬 객체 생성
+    public nmy_Item WE; //테스트용 아이탬 객체 생성
+    public nmy_Item WR; //테스트용 아이탬 객체 생성
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +27,11 @@ public class nmy_InventoryUI : MonoBehaviour
         slots = slotHolder.GetComponentsInChildren<nmy_Slot>(); //slotHolder하위 오브젝트를 가져와 slots리스트에 저장
         nmy_inven.onChangItem += RedrawSlotUI;
         inventoryPanel.SetActive(activateInventory);
+
+
+        nmy_inven.AddItem(WC);
+        nmy_inven.AddItem(WE);
+        nmy_inven.AddItem(WR);
     }
 
     // Update is called once per frame

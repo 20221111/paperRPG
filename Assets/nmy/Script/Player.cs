@@ -30,8 +30,9 @@ public class Player : MonoBehaviour
     public nmy_Item equipmunt; //플레이어가 장착하고 있는 아이탬
 
     public Slider[] infoBar;
-    public Text LV;
-    public Text Strees;
+    public Text TextLV;
+    public Text TextStrees;
+    public Text Textdamage;
 
     //맵 이동시 플레이어 이동제한
     public bool isControl;
@@ -86,6 +87,7 @@ public class Player : MonoBehaviour
         playerHPRegen();
         //플레이어의 정신력을 관리
         PlayerStressManager();
+
 
 
         //플레이어가 공격을 하는 매소드
@@ -200,6 +202,14 @@ public class Player : MonoBehaviour
         gameObject.layer = 11;
         spriteRenderer.color = new Color(1, 1, 1, 0.4f);
         hp -= damage;
+        if (stress>0)
+        {
+            stress -= 100;
+        }
+        else
+        {
+            stress = 0;
+        }
         UIBarController();
         anim.SetTrigger("doDamaged");
 
@@ -228,11 +238,18 @@ public class Player : MonoBehaviour
     //플레이어의 현재 공격력을 계산하는 메소드(플레이어 공격력 + 정신력 보정 + 무기공격력)
     public float PlayerAtackDamage(float playerDamage, float stress)
     {
+        float temp = playerDamage;
+
+        if (equipmunt != null)
+        {
+            temp += equipmunt.weaponDamage;
+        }
+
         if (stress <= 400)
         {
-            return (playerDamage/2);
+            temp = temp / 2;
         }
-        return playerDamage;
+        return temp;
     }
 
     //플레이어가 공격 버튼을 누를경우 실행되는 메소드
@@ -250,6 +267,7 @@ public class Player : MonoBehaviour
                 {
                     MobDIe(collider);
                 }
+                UItextController();
             }
         }
 
@@ -340,6 +358,7 @@ public class Player : MonoBehaviour
                 {
                     stress = MaxStress;
                 }
+                UItextController();
 
             }
         }
@@ -356,6 +375,7 @@ public class Player : MonoBehaviour
                     Debug.Log("정신력 최하치 경고");
                     stress = 0;
                 }
+                UItextController();
 
             }
         }
@@ -381,7 +401,9 @@ public class Player : MonoBehaviour
 
     void UItextController()
     {
-        LV.text = "LV." + level;
+        TextLV.text = "LV." + level;
+        TextStrees.text = (int)(stress / MaxStress * 100) + " / 100";
+        Textdamage.text = "" + (int)PlayerAtackDamage(attackDamage, stress);
     }
 
 

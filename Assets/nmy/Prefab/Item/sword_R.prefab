@@ -52,7 +52,7 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 3260f72e5b6eec24587b9132cb1ae0a0, type: 3}
   itemCount: 1
   itemPrefab: {fileID: 5037547094514766170}
-  weaponType: Sword
+  weaponDamage: 300
   isEquip: 0
 --- !u!198 &5037547094514766174
 ParticleSystem:

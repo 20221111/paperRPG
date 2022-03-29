@@ -20,8 +20,8 @@ public class nmy_Item : MonoBehaviour
     public Sprite itemImage;
     public int itemCount;
     public GameObject itemPrefab;
+    public int weaponDamage;
 
-    public string weaponType;
     public bool isEquip;
 
     public bool Use()

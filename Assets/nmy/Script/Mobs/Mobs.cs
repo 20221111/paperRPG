@@ -29,7 +29,7 @@ public class Mobs : MonoBehaviour
 
         mobName = "mob";
         HP = 100;
-        attack = 10;
+        attack = 50;
         Exp = 100;
         Money = 10;
 
