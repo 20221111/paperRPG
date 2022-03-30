@@ -151,10 +151,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1350930642442341330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffaa9767d2004a84e98082391dcb0039, type: 3}
+  m_Script: {fileID: 11500000, guid: d871927de21d75a4ca6ca22d8ea6769f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mobName: 
   nextMove: 0
-  HP: 10
-  attack: 10
-  Exp: 100
+  HP: 0
+  attack: 0
+  Exp: 0
+  Money: 0
