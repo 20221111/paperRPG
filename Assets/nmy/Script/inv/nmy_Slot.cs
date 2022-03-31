@@ -9,11 +9,13 @@ public class nmy_Slot : MonoBehaviour
     public GameObject player;
     public nmy_Item item; //해당 슬롯에 저장되 있는 아이탬을 저장
     public Image itemimage;
+    public Text itemcount;
 
     //슬롯 정보를 업데이트
     public void UpdateSlotUI()
     {
         itemimage.sprite = item.itemImage; //아이탬의 이미지를 가져와 해당 슬롯의 이미지로 설정
+        itemcount.text = item.itemCount.ToString();//아이템의 갯수를 표시
         itemimage.gameObject.SetActive(true);//오브젝트를 활성화
     } 
     

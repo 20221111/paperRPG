@@ -30,10 +30,19 @@ public class nmy_Inventory : MonoBehaviour
     //인벤토리에 아이탬을 더하는 메소드
     public bool AddItem(nmy_Item _Item)
     {
+        int _index;
         if (items.Count < slotCnt)
         {
-            items.Add(_Item);
-            onChangItem.Invoke();
+            if (items.Exists(x => x.itemName == _Item.itemName))
+            {
+                _index = items.IndexOf(_Item);
+                items[_index].itemCount += 1;
+            }
+            else
+            {
+                items.Add(_Item);
+                onChangItem.Invoke();
+            }
             return true;
         }
         return false;
@@ -44,7 +53,7 @@ public class nmy_Inventory : MonoBehaviour
     {
         int _index;
 
-        if (items.Exists(x => x = _Item))
+        if (items.Exists(x => x.itemName == _Item.itemName))
         {
             _index = items.IndexOf(_Item);
             if (items[_index].itemCount > 1)

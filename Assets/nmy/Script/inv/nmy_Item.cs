@@ -18,7 +18,7 @@ public class nmy_Item : MonoBehaviour
     public string itemName;
     public string itemDescription;
     public Sprite itemImage;
-    public int itemCount;
+    public int itemCount = 0;
     public GameObject itemPrefab;
     public int weaponDamage;
 

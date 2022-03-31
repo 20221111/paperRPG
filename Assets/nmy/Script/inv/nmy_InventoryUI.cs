@@ -32,6 +32,8 @@ public class nmy_InventoryUI : MonoBehaviour
         nmy_inven.AddItem(WC);
         nmy_inven.AddItem(WE);
         nmy_inven.AddItem(WR);
+        nmy_inven.AddItem(WR);
+        nmy_inven.AddItem(WR);
     }
 
     // Update is called once per frame
