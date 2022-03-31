@@ -1,29 +1,30 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class nmy_Slot : MonoBehaviour
 {
+    public int slotNum;
     public GameObject player;
-    public nmy_Item item; //ÇØ´ç ½½·Ô¿¡ ÀúÀåµÇ ÀÖ´Â ¾ÆÀÌÅÆÀ» ÀúÀå
+    public nmy_Item item; //í•´ë‹¹ ìŠ¬ë¡¯ì— ì €ì¥ë˜ ìˆëŠ” ì•„ì´íƒ¬ì„ ì €ì¥
     public Image itemimage;
 
-    //½½·Ô Á¤º¸¸¦ ¾÷µ¥ÀÌÆ®
+    //ìŠ¬ë¡¯ ì •ë³´ë¥¼ ì—…ë°ì´íŠ¸
     public void UpdateSlotUI()
     {
-        itemimage.sprite = item.itemImage; //¾ÆÀÌÅÆÀÇ ÀÌ¹ÌÁö¸¦ °¡Á®¿Í ÇØ´ç ½½·ÔÀÇ ÀÌ¹ÌÁö·Î ¼³Á¤
-        itemimage.gameObject.SetActive(true);//¿ÀºêÁ§Æ®¸¦ È°¼ºÈ­
+        itemimage.sprite = item.itemImage; //ì•„ì´íƒ¬ì˜ ì´ë¯¸ì§€ë¥¼ ê°€ì ¸ì™€ í•´ë‹¹ ìŠ¬ë¡¯ì˜ ì´ë¯¸ì§€ë¡œ ì„¤ì •
+        itemimage.gameObject.SetActive(true);//ì˜¤ë¸Œì íŠ¸ë¥¼ í™œì„±í™”
     } 
     
-    //½½·Ô¾ÈÀÇ ¾ÆÀÌÅÆ Á¤º¸¸¦ »èÁ¦
+    //ìŠ¬ë¡¯ì•ˆì˜ ì•„ì´íƒ¬ ì •ë³´ë¥¼ ì‚­ì œ
     public void RemoveSlot()
     {
-        item = null;  //¾ÆÀÌÅÆ °´Ã¼¸¦ Áö¿ò
-        itemimage.gameObject.SetActive(true);//¿ÀºêÁ§Æ®¸¦ È°¼ºÈ­
+        item = null;  //ì•„ì´íƒ¬ ê°ì²´ë¥¼ ì§€ì›€
+        itemimage.gameObject.SetActive(true);//ì˜¤ë¸Œì íŠ¸ë¥¼ í™œì„±í™”
     }
 
-    //Àåºñ¸¦ ÀåÂøÇÔ
+    //ì¥ë¹„ë¥¼ ì¥ì°©í•¨
     public void Equip()
     {
         if (item.itemType == ItemType.Equip)
@@ -36,7 +37,7 @@ public class nmy_Slot : MonoBehaviour
             {
                 if (player.GetComponent<Player>().equipmunt != null)
                 {
-                    Debug.Log("ÇöÀç ÀåÂøÁßÀÎ Àåºñ¸¦ ÇØÁ¦ÇØ¾ß ÇÕ´Ï´Ù.");
+                    Debug.Log("í˜„ì¬ ì¥ì°©ì¤‘ì¸ ì¥ë¹„ë¥¼ í•´ì œí•´ì•¼ í•©ë‹ˆë‹¤.");
                 }
                 else
                 {

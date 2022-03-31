@@ -1,6 +1,7 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime;
 
 public class nmy_Inventory : MonoBehaviour
 {
@@ -18,15 +19,15 @@ public class nmy_Inventory : MonoBehaviour
     }
     #endregion
 
-    public delegate void OnChangItem(); // ¾ÆÀÌÅÆÀÌ º¯°æµÇ¾úÀ» °æ¿ì ½ÇÇàÇÒ ´ë¸®ÀÚ ¼±¾ğ
-    public OnChangItem onChangItem; //´ë¸®ÀÚ ÀÎ½ºÅÏ½º »ı¼º
+    public delegate void OnChangItem(); // ì•„ì´íƒ¬ì´ ë³€ê²½ë˜ì—ˆì„ ê²½ìš° ì‹¤í–‰í•  ëŒ€ë¦¬ì ì„ ì–¸
+    public OnChangItem onChangItem; //ëŒ€ë¦¬ì ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
 
-    public List<nmy_Item> items = new List<nmy_Item>(); //ÀÎº¥Åä¸®¿¡ ÀúÀåµÈ ¾ÆÀÌÅÆÀ» ÀúÀåÇÒ ¸®½ºÆ®
+    public List<nmy_Item> items = new List<nmy_Item>(); //ì¸ë²¤í† ë¦¬ì— ì €ì¥ëœ ì•„ì´íƒ¬ì„ ì €ì¥í•  ë¦¬ìŠ¤íŠ¸
 
-    public int slotCnt = 20; //½½·Ô °¹¼ö´Â 20°³·Î ÁöÁ¤
+    public int slotCnt = 20; //ìŠ¬ë¡¯ ê°¯ìˆ˜ëŠ” 20ê°œë¡œ ì§€ì •
 
 
-    //ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÆÀ» ´õÇÏ´Â ¸Ş¼Òµå
+    //ì¸ë²¤í† ë¦¬ì— ì•„ì´íƒ¬ì„ ë”í•˜ëŠ” ë©”ì†Œë“œ
     public bool AddItem(nmy_Item _Item)
     {
         if (items.Count < slotCnt)
@@ -36,6 +37,32 @@ public class nmy_Inventory : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    //ì¸ë²¤í† ë¦¬ì— ì•„ì´íƒ¬ì„ ì‚­ì œí•˜ëŠ” ë©”ì†Œë“œ
+    public bool RemoveItem(nmy_Item _Item)
+    {
+        int _index;
+
+        if (items.Exists(x => x = _Item))
+        {
+            _index = items.IndexOf(_Item);
+            if (items[_index].itemCount > 1)
+            {
+                items[_index].itemCount -= 1;
+            }
+            else
+            {
+                items.RemoveAt(_index);
+            }
+            onChangItem.Invoke();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
 
 }
