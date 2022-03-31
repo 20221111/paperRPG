@@ -33,7 +33,7 @@ public class nmy_Inventory : MonoBehaviour
         int _index;
         if (items.Count < slotCnt)
         {
-            if (items.Exists(x => x.itemName == _Item.itemName))
+            if (items.Exists(x => x.itemName == _Item.itemName) && _Item.itemType != ItemType.Equip)
             {
                 _index = items.IndexOf(_Item);
                 items[_index].itemCount += 1;
@@ -41,8 +41,8 @@ public class nmy_Inventory : MonoBehaviour
             else
             {
                 items.Add(_Item);
-                onChangItem.Invoke();
             }
+            onChangItem.Invoke();
             return true;
         }
         return false;

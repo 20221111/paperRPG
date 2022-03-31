@@ -23,7 +23,7 @@ public class nmy_Slot : MonoBehaviour
     public void RemoveSlot()
     {
         item = null;  //아이탬 객체를 지움
-        itemimage.gameObject.SetActive(true);//오브젝트를 활성화
+        itemimage.gameObject.SetActive(false);//오브젝트를 비활성화
     }
 
     //장비를 장착함

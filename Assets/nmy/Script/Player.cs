@@ -90,6 +90,7 @@ public class Player : MonoBehaviour
 
 
 
+
         //플레이어가 공격을 하는 매소드
         if (curtime <= 0)
         {

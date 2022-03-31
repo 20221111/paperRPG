@@ -32,8 +32,6 @@ public class nmy_InventoryUI : MonoBehaviour
         nmy_inven.AddItem(WC);
         nmy_inven.AddItem(WE);
         nmy_inven.AddItem(WR);
-        nmy_inven.AddItem(WR);
-        nmy_inven.AddItem(WR);
     }
 
     // Update is called once per frame
@@ -43,6 +41,17 @@ public class nmy_InventoryUI : MonoBehaviour
         {
             activateInventory = !activateInventory; //activateInventory변수를 반전시킴
             inventoryPanel.SetActive(activateInventory); //activateInventory변수에 맞춰 inventoryPanel을 껏다 켰다함
+        }
+
+        //테스트 코드
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            nmy_inven.RemoveItem(WR);
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            nmy_inven.AddItem(WR);
         }
     }
 
