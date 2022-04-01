@@ -393,5 +393,4 @@ public class Player : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(Pos.position, boxSize);
     }
-
 }
