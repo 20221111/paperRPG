@@ -37,16 +37,17 @@ public class Player : MonoBehaviour
     public bool isControl;
 
 
-    void Awake() {
+    void Awake()
+    {
 
-        if(instance == null)
+        if (instance == null)
         {
             DontDestroyOnLoad(this.gameObject); //맵 이동할때 플레이어 사라지지않게
             instance = this;
 
         }
         else
-        { 
+        {
             Destroy(this.gameObject);
         }
 
@@ -80,7 +81,8 @@ public class Player : MonoBehaviour
 
 
     }
-    void Update() {
+    void Update()
+    {
 
         //플레이어의 채력을 재생
         playerHPRegen();
@@ -106,18 +108,20 @@ public class Player : MonoBehaviour
         }
 
         //Jump가 입력되고 점프중이 아닐경우 rigid를 위방향으로 jumpPower만큼 AddForce함
-        if (Input.GetButtonDown("Jump") && !anim.GetBool("jumping")){
-      rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-      anim.SetBool("jumping", true);
-    }
-      
-    //수평움직임이 종료 될 경우 플레이어의 속도를 낮춤
-    if(Input.GetButtonUp("Horizontal")) {
-      rigid.velocity = new Vector2(rigid.velocity.normalized.x* 0.5f, rigid.velocity.y);
-    }
+        if (Input.GetButtonDown("Jump") && !anim.GetBool("jumping"))
+        {
+            rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            anim.SetBool("jumping", true);
+        }
 
-    //수평 움직임이 감지될 경우 플레이어가 해당방향을 바라보도록 수정 
-    if (Input.GetButton("Horizontal"))
+        //수평움직임이 종료 될 경우 플레이어의 속도를 낮춤
+        if (Input.GetButtonUp("Horizontal"))
+        {
+            rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
+        }
+
+        //수평 움직임이 감지될 경우 플레이어가 해당방향을 바라보도록 수정 
+        if (Input.GetButton("Horizontal"))
         {
             spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
             if (spriteRenderer.flipX)
@@ -137,9 +141,9 @@ public class Player : MonoBehaviour
         else
             anim.SetBool("waking", true);
 
-
+        
     }
-    
+
     void FixedUpdate()
     {
         //플레이어의 움직임이 허용된(true일) 경우
@@ -212,10 +216,10 @@ public class Player : MonoBehaviour
     }
     //플레이어가 데미지를 전부입고 다시 원래 상태로 되돌아감
     void OffDamaged()
-        {
-            gameObject.layer = 10;
-            spriteRenderer.color = new Color(1, 1, 1, 1);
-        }
+    {
+        gameObject.layer = 10;
+        spriteRenderer.color = new Color(1, 1, 1, 1);
+    }
 
     //플레이어가 죽으면 시간을 멈춤
     public void DIe()
@@ -230,7 +234,7 @@ public class Player : MonoBehaviour
     {
         if (stress <= 400)
         {
-            return (playerDamage/2);
+            return (playerDamage / 2);
         }
         return playerDamage;
     }
@@ -290,7 +294,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    //플레이어 하위 오브젝트로 장착된 아이탬을 생성
+    //플레이어 하위 오브젝트로 장착된 아이템을 생성
     public void PlayerEquip(nmy_Item equipmunt)
     {
         Instantiate(equipmunt.itemPrefab, this.transform);
