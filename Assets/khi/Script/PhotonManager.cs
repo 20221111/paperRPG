@@ -21,7 +21,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     void Start()
     {
         OnLogin();
-        SpawnPos = GameObject.Find("Player").transform.position;
+        SpawnPos = GameObject.Find("player").transform.position;
     }
 
     void OnLogin()
@@ -45,8 +45,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        if(PhotonNetwork.Instantiate("player", Vector3.zero, Quaternion.identity) == null)
+        {
+            Debug.Log("¸ÓÁö?");
+        }
         Debug.Log("Joined Room");
-        PhotonNetwork.Instantiate("Player", SpawnPos, Quaternion.identity);
     }
 
     void CreateRoom()
